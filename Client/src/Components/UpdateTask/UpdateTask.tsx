@@ -1,11 +1,11 @@
 import { Container } from "../shared";
 import { useQuery, useMutation } from "react-query";
-import { Box, Heading, Flex } from "rebass/styled-components";
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { PUBLIC_ROUTES, TTask } from '../../Shared';
 import { getTaskById, updateTask } from '../../Api/axios';
 import TaskForm from '../shared/TaskForm/TaskForm';
+import { Box, Typography } from '@mui/material';
 
 const UpdateBook = () => {
   const { id } = useParams()
@@ -26,7 +26,9 @@ const UpdateBook = () => {
           py: 3,
         }}
       >
-        <Heading sx={{ marginBottom: 3 }}>Update Book</Heading>
+        <Typography variant="h5" component="h5">
+          Update Task
+        </Typography>;
         <TaskForm defaultValues={data as TTask} onFormSubmit={onFormSubmit} isLoading={isMutating}/>
       </Box>
     </Container>

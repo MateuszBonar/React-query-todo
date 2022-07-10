@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { TaskFormProps } from './types';
 import { useForm } from 'react-hook-form';
-import { Box, Button } from "rebass/styled-components";
+
 import { Loader } from '../index';
+import { Box, Button, Checkbox } from '@mui/material';
+import { Label } from '@mui/icons-material';
 
 const TaskForm: FC<TaskFormProps> = ({ defaultValues, onFormSubmit, isLoading }): JSX.Element => {
 
@@ -15,14 +17,14 @@ const TaskForm: FC<TaskFormProps> = ({ defaultValues, onFormSubmit, isLoading })
   return (
     <form onSubmit={onSubmit}>
       <Box sx={{ marginBottom: 3 }}>
-        <label>Title</label>
+        <Label>Title</Label>
         <input ref={register} id='title' name='title' type='text' />
       </Box>
       <Box sx={{ marginBottom: 3 }}>
-        <label> isFinished</label>
-        <switch ref={register} id='isFinished' name='isFinished' type='text' />
+        <Label> isFinished</Label>
+        <Checkbox ref={register} size="small" id="isFinished" name='Is Task Finished'/>
       </Box>
-      <Button variant='primary' mr={2}>
+      <Button variant="contained">
         {isLoading ? <Loader /> : 'Submit'}
       </Button>
     </form>

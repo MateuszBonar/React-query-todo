@@ -1,29 +1,49 @@
 import { FC } from 'react';
-import { Flex, Text, Button, Link as StyledLink } from 'rebass/styled-components';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import { removeTask } from '../../Api/axios';
+import { removeTask, updateTask } from '../../Api/axios';
 import { Loader } from '../shared';
 import { TTask } from '../../Shared';
+import { Button, Checkbox, Grid } from '@mui/material';
+
 
 const TaskItem: FC<TTask> = ({ id, title, isFinished }) => {
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation(removeTask);
+  const refetchData = (): void => {
+    queryClient.invalidateQueries('tasks');
+  };
+
+  const { mutate: removeCurrentTask, isLoading: isLoadingRemove } = useMutation(removeTask, {
+    onSuccess: refetchData,
+  });
+  const { mutateAsync, isLoading: isLoadingUpdate } = useMutation(updateTask, {
+    onSuccess: refetchData,
+  });
+
+  const isLoading = isLoadingRemove || isLoadingUpdate;
 
   const remove = async (): Promise<void> => {
-    await mutate(id);
+    await removeCurrentTask(id);
+    queryClient.invalidateQueries('tasks');
+  };
+
+  const onCheckboxChange = async (e: any): Promise<void> => {
+    await mutateAsync({ id, title, isFinished: e.target.checked });
     queryClient.invalidateQueries('tasks');
   };
 
   return (
-    <Flex key={id} p={3} width='100%' alignItems='center'>
-      {/* @ts-ignore*/}
-      <StyledLink as={RouterLink} to={`/update-task/${id}`} mr='auto'>{title}</StyledLink>
-      <Text>{isFinished}</Text>
-      <Button onClick={remove} ml='5'>
+    <Grid key={id} p={3} width='100%' alignItems='center'>
+      <Checkbox
+        disabled={isLoading}
+        checked={isFinished}
+        onChange={onCheckboxChange}
+      />
+      <Link to={`/update-task/${id}`}>{title}</Link>
+      <Button onClick={remove}>
         {isLoading ? <Loader /> : 'Remove'}
       </Button>
-    </Flex>
+    </Grid>
   );
 };
 

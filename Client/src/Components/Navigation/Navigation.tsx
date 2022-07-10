@@ -1,30 +1,31 @@
-import React, { FC } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Flex,
-  Box,
-  Link as StyledLink,
-} from 'rebass/styled-components';
+import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import Container from '../shared/Container';
+import Wrapper from '../shared/Container';
 import { PUBLIC_ROUTES } from '../../Shared';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Navigation: FC = (): JSX.Element => {
-  return <Flex bg='black' color='white' justifyContent='center'>
-    <Container>
-      <Flex px={2} width='100%' alignItems='center'>
-        {/*@ts-ignore*/}
-        <StyledLink as={RouterLink} variant='nav' to={PUBLIC_ROUTES.HOME}>
-          ToDoApp
-        </StyledLink>
-        <Box mx='auto' />
-        {/*@ts-ignore*/}
-        <StyledLink as={RouterLink} variant='nav' to='/create-task'>
-          + Add new task
-        </StyledLink>
-      </Flex>
-    </Container>
-  </Flex>;
+  const [value, setValue] = useState('/');
+
+  return <Wrapper>
+    <BottomNavigation
+      showLabels
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+    >
+      <Link to={PUBLIC_ROUTES.HOME}>
+        <BottomNavigationAction label='home' icon={<RestoreIcon />} />
+      </Link>
+      <Link to={PUBLIC_ROUTES.CREATE_TASK}>
+        <BottomNavigationAction label='create' icon={<FavoriteIcon />} />
+      </Link>
+    </BottomNavigation>
+  </Wrapper>;
 };
 
 export default Navigation;

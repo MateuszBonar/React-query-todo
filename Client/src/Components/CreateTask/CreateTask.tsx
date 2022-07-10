@@ -1,12 +1,12 @@
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
-import { Box, Heading } from 'rebass/styled-components';
+import { Box, Typography } from '@mui/material';
 
 import { Container } from '../shared';
 import { TTask } from '../../Shared';
 import { createTask } from '../../Api/axios';
 import TaskForm from '../shared/TaskForm/TaskForm';
-import { FC } from 'react';
 
 const CreateTask: FC = (): JSX.Element => {
   const navigate = useNavigate();
@@ -23,7 +23,9 @@ const CreateTask: FC = (): JSX.Element => {
           py: 3,
         }}
       >
-        <Heading sx={{ marginBottom: 3 }}>Create New Task</Heading>
+        <Typography variant="h1" component="h2">
+          Create New Task
+        </Typography>;
         <TaskForm onFormSubmit={onFormSubmit} isLoading={isLoading} />
       </Box>
     </Container>
