@@ -7,7 +7,7 @@ import {
 } from 'rebass/styled-components';
 
 import Container from '../shared/Container';
-import { PUBLIC_ROUTES } from '../../Constants';
+import { PUBLIC_ROUTES } from '../../Shared';
 
 const Navigation: FC = (): JSX.Element => {
   return <Flex bg='black' color='white' justifyContent='center'>

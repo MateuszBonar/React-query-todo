@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { TasksList, Navigation } from './Components';
-import { PUBLIC_ROUTES } from './Constants';
+import { PUBLIC_ROUTES } from './Shared';
 import CreateTask from './Components/CreateTask/CreateTask';
 import UpdateTask from './Components/UpdateTask';
 

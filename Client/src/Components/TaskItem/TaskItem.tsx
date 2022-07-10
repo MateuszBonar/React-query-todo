@@ -4,33 +4,15 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { removeTask } from '../../Api/axios';
 import { Loader } from '../shared';
-import { TTask } from '../../shared';
+import { TTask } from '../../Shared';
 
 const TaskItem: FC<TTask> = ({ id, title, isFinished }) => {
   const queryClient = useQueryClient();
-  const { mutate: addTask, isLoading } = useMutation(removeTask, {
-    onMutate: async (id) => {
-      await queryClient.cancelQueries('tasks');
-      const previousTasksData = queryClient.getQueryData('tasks');
-      queryClient.setQueryData('tasks', (oldQueryData: any) => {
-        return {
-          ...oldQueryData,
-          data: (oldQueryData.data as TTask[]).filter(task => task.id !== id),
-        }
-      });
-      return { previousTasksData };
-    },
-    onError: (_err, _newTodo, context) => {
-      //@ts-ignore
-      queryClient.setQueryData('tasks', context?.previousData);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('tasks');
-    },
-  });
+  const { mutate, isLoading } = useMutation(removeTask);
 
-  const remove = (): void => {
-    addTask(id);
+  const remove = async (): Promise<void> => {
+    await mutate(id);
+    queryClient.invalidateQueries('tasks');
   };
 
   return (

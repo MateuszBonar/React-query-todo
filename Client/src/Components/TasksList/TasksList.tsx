@@ -5,14 +5,14 @@ import { Flex } from 'rebass/styled-components';
 import Container from '../shared/Container';
 import { getAllTasks } from '../../Api/axios';
 import TaskItem from '../TaskItem';
-import { TTask } from '../../shared';
+import { TError, TTask } from '../../Shared';
 
 const TasksList: FC = ():JSX.Element => {
-  const { data, error, isLoading, isError } = useQuery('tasks', getAllTasks);
+  const { data, error, isLoading, isError } = useQuery<TTask[], TError>('tasks', getAllTasks);
 
   return <Container error={error} isError={isError} isLoading={isLoading}>
     <Flex flexDirection='column' alignItems='center'>
-      {data?.data?.map((el: TTask) => (
+      {data?.map((el: TTask) => (
         <TaskItem key={el.id} {...el} />
       ))}
     </Flex>

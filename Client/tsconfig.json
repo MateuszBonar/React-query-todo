@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "paths": {
+    "rebass/forms/styled-components": ["node_modules/@types/rebass"]
+  }
 }

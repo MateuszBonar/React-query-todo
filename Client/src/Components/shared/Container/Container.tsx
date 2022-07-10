@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Flex } from 'rebass/styled-components';
 import { ContainerProps } from './types';
-import { TError } from '../../../shared';
+import { TError } from '../../../Shared';
 import Loader from '../Loader';
 
 const Container: FC<ContainerProps> = ({ children, error, isError, isLoading }): JSX.Element => {

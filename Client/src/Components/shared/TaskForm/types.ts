@@ -1,4 +1,4 @@
-import { TTask } from '../../../shared';
+import { TTask } from '../../../Shared';
 
 export type TaskFormProps = {
   defaultValues?: TTask;

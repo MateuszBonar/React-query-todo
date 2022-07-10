@@ -15,7 +15,7 @@ export const axiosInstance = (): AxiosInstance => {
   })
 
   axiosInstance.interceptors.response.use(
-    res => res, err => {
+    res => res.data, err => {
       if (!err.response) {
         return Promise.reject({
           message: "Server error",

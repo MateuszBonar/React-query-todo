@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { Box, Heading } from 'rebass/styled-components';
 
 import { Container } from '../shared';
-import { TTask } from '../../shared';
+import { TTask } from '../../Shared';
 import { createTask } from '../../Api/axios';
 import TaskForm from '../shared/TaskForm/TaskForm';
 import { FC } from 'react';
